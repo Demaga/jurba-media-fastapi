@@ -1,20 +1,31 @@
+from api import auth
+from core.config import settings
 from database.database import engine, get_db
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from models.user import User
-from sqladmin import Admin, ModelView
+from sqlalchemy.orm import Session
+from starlette.requests import Request
 
 app = FastAPI()
 
-admin = Admin(app, engine)
+origins = [
+    "http://localhost:3000",
+]
 
-
-class UserAdmin(ModelView, model=User):
-    column_list = [User.id, User.email, User.is_active]
-
-
-admin.add_view(UserAdmin)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["Content-Range"],
+)
 
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
+
+app.include_router(auth.router, prefix="/api", tags=["auth"])
