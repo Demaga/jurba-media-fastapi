@@ -14,7 +14,9 @@ router = APIRouter()
 
 
 @router.post("/token", response_model=Token)
-def login(db: Session = Depends(get_db), email: str = Form(), password: str = Form()):
+async def login(
+    db: Session = Depends(get_db), email: str = Form(), password: str = Form()
+):
     user = auth.authenticate_user(db, email, password)
     if not user:
         raise HTTPException(
@@ -30,18 +32,13 @@ def login(db: Session = Depends(get_db), email: str = Form(), password: str = Fo
 
 
 @router.get("/users", response_model=list[User])
-def read_users(response: Response, db: Session = Depends(get_db)):
+async def read_users(response: Response, db: Session = Depends(get_db)):
     users = get_users(db)
     # This is necessary for react-admin to work
     response.headers["Content-Range"] = f"0-9/{len(users)}"
     return users
 
 
-@router.get("/users/me/", response_model=User)
-def read_users_me(current_user: User = Depends(auth.get_current_active_user)):
+@router.get("/users/me", response_model=User)
+async def read_users_me(current_user: User = Depends(auth.get_current_active_user)):
     return current_user
-
-
-@router.get("/users/me/items/")
-def read_own_items(current_user: User = Depends(auth.get_current_active_user)):
-    return [{"item_id": "Foo", "owner": current_user.email}]
