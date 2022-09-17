@@ -14,7 +14,7 @@ export default function HomePage() {
 
       <main className={styles.main}>
         <p>Press x to login</p>
-        <button>Login</button>
+        <Link href="/login"><button>Login</button></Link>
         <Link href="/admin"><a>Click here to visit ADMIN</a></Link>
       </main>
 

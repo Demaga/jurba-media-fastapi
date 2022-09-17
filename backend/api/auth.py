@@ -17,7 +17,7 @@ router = APIRouter()
 async def login(
     db: Session = Depends(get_db), email: str = Form(), password: str = Form()
 ):
-    user = auth.authenticate_user(db, email, password)
+    user = auth.authenticate_user(db, email.lower(), password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

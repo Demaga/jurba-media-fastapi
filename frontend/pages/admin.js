@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-const Admin = dynamic(() => import("./_admin"), { ssr: false });
+const ReactAdmin = dynamic(() => import("../components/ReactAdmin"), { ssr: false });
 
 export default function AdminPage() {
   return (
@@ -12,7 +12,7 @@ export default function AdminPage() {
         <title>Admin</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Admin/>
+      <ReactAdmin/>
     </div>
   )
 }
