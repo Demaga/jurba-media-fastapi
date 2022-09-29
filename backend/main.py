@@ -1,4 +1,4 @@
-from api import auth
+from api import article, auth
 from core.config import settings
 from database.database import engine, get_db
 from fastapi import Depends, FastAPI
@@ -19,7 +19,8 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["Content-Range"],
+    expose_headers=["Content-Range", "X-Total-Count"],
+    # expose_headers=[],
 )
 
 
@@ -29,3 +30,4 @@ async def root():
 
 
 app.include_router(auth.router, prefix="/api", tags=["auth"])
+app.include_router(article.router, prefix="/api", tags=["article"])

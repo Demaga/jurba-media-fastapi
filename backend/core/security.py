@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from passlib.context import CryptContext
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/token")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

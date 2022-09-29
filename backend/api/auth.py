@@ -6,6 +6,7 @@ from core.config import settings
 from crud.user import *
 from database.database import get_db
 from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from schemas.auth import Token, TokenData
 from schemas.user import User, UserCreate
 from sqlalchemy.orm import Session
@@ -15,8 +16,11 @@ router = APIRouter()
 
 @router.post("/token", response_model=Token)
 async def login(
-    db: Session = Depends(get_db), email: str = Form(), password: str = Form()
+    db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
 ):
+    email = form_data.username
+    password = form_data.password
+
     user = auth.authenticate_user(db, email.lower(), password)
     if not user:
         raise HTTPException(

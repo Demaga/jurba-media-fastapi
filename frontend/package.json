@@ -16,11 +16,11 @@
     "ra-data-simple-rest": "^4.3.2",
     "react": "18.2.0",
     "react-admin": "^4.3.1",
-    "react-bootstrap": "^2.5.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "eslint": "8.23.0",
-    "eslint-config-next": "12.2.5"
+    "eslint-config-next": "12.2.5",
+    "prettier": "2.7.1"
   }
 }

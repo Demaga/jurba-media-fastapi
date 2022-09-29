@@ -1,8 +1,8 @@
 from logging.config import fileConfig
 
 from alembic import context
-from database.database import SQLALCHEMY_DATABASE_URL
-from models import user
+from database.database import SQLALCHEMY_DATABASE_URL, Base
+from models import article, user
 from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides
@@ -21,7 +21,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-target_metadata = user.User.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

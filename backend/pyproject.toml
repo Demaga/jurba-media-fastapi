@@ -18,6 +18,8 @@ python-jose = "^3.3.0"
 cryptography = "^38.0.1"
 passlib = "^1.7.4"
 python-multipart = "^0.0.5"
+python-slugify = "^6.1.2"
+fastapi-crudrouter = "^0.8.5"
 
 [tool.poetry.group.dev.dependencies]
 fastapi = "^0.82.0"
